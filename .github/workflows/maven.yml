@@ -5,9 +5,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "git-3.11.0-release" ]
+    branches: [ "git-3.11.0" ]
   pull_request:
-    branches: [ "git-3.11.0-release" ]
+    branches: [ "git-3.11.0" ]
 
 jobs:
   build:
