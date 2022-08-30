@@ -2610,8 +2610,8 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
 
         EnvVars freshEnv = new EnvVars(env);
 
-        listener.getLogger().println("> [Hotfix.Temporary.Scheme] Delete the variable with 'git_commits' prefix used in webhook, and the variable 'webHookDataJson_xx' that is currently custom resolved.");
-        freshEnv.keySet().removeIf(key -> key.startsWith("git_commits") || key.startsWith("webHookDataJson") );
+        // listener.getLogger().println("> [Hotfix.Temporary.Scheme] Delete the variable with 'git_commits' prefix used in webhook, and the variable 'webHookDataJson_xx' that is currently custom resolved.");
+        // freshEnv.keySet().removeIf(key -> key.startsWith("git_commits") || key.startsWith("webHookDataJson") );
 
         // If we don't have credentials, but the requested URL requires them,
         // it is possible for Git to hang forever waiting for interactive
@@ -2633,10 +2633,10 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
 
             Launcher.ProcStarter p = launcher.launch().cmds(args.toCommandArray()).envs(freshEnv);
 
-            listener.getLogger().println("[Debug.1] env ==>" + JsonOutput.toJson(env));
-            listener.getLogger().println("[Debug.2] freshEnv ==>" + JsonOutput.toJson(freshEnv));
-            listener.getLogger().println("[Debug.3] args.toCommandArray() ==>" + JsonOutput.toJson(args.toCommandArray()));
-            listener.getLogger().println("[Debug.4] ----------------------------------------------------------------------------");
+            // listener.getLogger().println("[Debug.1] env ==>" + JsonOutput.toJson(env));
+            // listener.getLogger().println("[Debug.2] freshEnv ==>" + JsonOutput.toJson(freshEnv));
+            // listener.getLogger().println("[Debug.3] args.toCommandArray() ==>" + JsonOutput.toJson(args.toCommandArray()));
+            // listener.getLogger().println("[Debug.4] ----------------------------------------------------------------------------");
 
             if (workDir != null) {
                 p.pwd(workDir);
