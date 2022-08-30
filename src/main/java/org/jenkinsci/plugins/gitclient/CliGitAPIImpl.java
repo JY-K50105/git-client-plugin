@@ -2609,7 +2609,7 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
         EnvVars freshEnv = new EnvVars(env);
 
         listener.getLogger().println("> [Hotfix.Temporary.Scheme] Delete the variable with 'git_commits' prefix used in webhook, and the variable 'webHookDataJson_xx' that is currently custom resolved.");
-        freshEnv.values().removeIf(value -> value.startsWith("git_commits") || value.startsWith("webHookDataJson") );
+        freshEnv.keySet().removeIf(key -> key.startsWith("git_commits") || key.startsWith("webHookDataJson") );
 
         // If we don't have credentials, but the requested URL requires them,
         // it is possible for Git to hang forever waiting for interactive
