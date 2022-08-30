@@ -4,8 +4,10 @@ import com.cloudbees.jenkins.plugins.sshcredentials.SSHUserPrivateKey;
 import com.cloudbees.plugins.credentials.common.StandardCredentials;
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials;
 
+import com.google.gson.JsonObject;
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.NonNull;
+import groovy.json.JsonOutput;
 import hudson.EnvVars;
 import hudson.FilePath;
 import hudson.Launcher;
@@ -37,7 +39,6 @@ import org.eclipse.jgit.transport.RemoteConfig;
 import org.eclipse.jgit.transport.URIish;
 import org.jenkinsci.plugins.gitclient.cgit.GitCommandsExecutor;
 import org.jenkinsci.plugins.scriptsecurity.sandbox.whitelists.Whitelisted;
-import org.json.JSONObject;
 import org.kohsuke.stapler.framework.io.WriterOutputStream;
 
 import java.io.*;
@@ -2616,7 +2617,7 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
     private String launchCommandIn(ArgumentListBuilder args, File workDir, EnvVars env, Integer timeout) throws GitException, InterruptedException {
 
         EnvVars freshEnv = new EnvVars(env);
-        listener.getLogger().println("env ==>" + JSONObject.valueToString(env));
+        listener.getLogger().println("env ==>" + JsonOutput.toJson(env));
 
         // fix "Webhook push data too long, caused pipeline git pull errror. it tips that Argument list too long."
         // JIRA：https://issues.jenkins.io/browse/JENKINS-69423
@@ -2648,9 +2649,9 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
 
             Launcher.ProcStarter p = launcher.launch().cmds(args.toCommandArray()).envs(freshEnv);
 
-            listener.getLogger().println("freshEnv ==>" + JSONObject.valueToString(freshEnv));
-            listener.getLogger().println("args ==>" + JSONObject.valueToString(args));
-            listener.getLogger().println("Launcher.ProcStarter p ==>" + JSONObject.valueToString(p));
+            listener.getLogger().println("freshEnv ==>" + JsonOutput.toJson(freshEnv));
+            listener.getLogger().println("args ==>" + JsonOutput.toJson(args));
+            listener.getLogger().println("Launcher.ProcStarter p ==>" + JsonOutput.toJson(p));
 
             if (workDir != null) {
                 p.pwd(workDir);
