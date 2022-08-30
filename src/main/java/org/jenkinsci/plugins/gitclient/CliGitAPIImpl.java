@@ -2617,17 +2617,6 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
     private String launchCommandIn(ArgumentListBuilder args, File workDir, EnvVars env, Integer timeout) throws GitException, InterruptedException {
 
         EnvVars freshEnv = new EnvVars(env);
-        listener.getLogger().println("env ==>" + JsonOutput.toJson(env));
-
-        // fix "Webhook push data too long, caused pipeline git pull errror. it tips that Argument list too long."
-        // JIRA：https://issues.jenkins.io/browse/JENKINS-69423
-        /*EnvVars freshEnv = new EnvVars();
-        if(env.containsKey("GIT_SSH")){
-            freshEnv.put("GIT_SSH",env.get("GIT_SSH"));
-        }
-        if(env.containsKey("DISPLAY")){
-            freshEnv.put("DISPLAY",env.get("DISPLAY"));
-        }*/
 
         // If we don't have credentials, but the requested URL requires them,
         // it is possible for Git to hang forever waiting for interactive
@@ -2649,9 +2638,9 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
 
             Launcher.ProcStarter p = launcher.launch().cmds(args.toCommandArray()).envs(freshEnv);
 
-            listener.getLogger().println("freshEnv ==>" + JsonOutput.toJson(freshEnv));
-            listener.getLogger().println("args ==>" + JsonOutput.toJson(args));
-            listener.getLogger().println("Launcher.ProcStarter p ==>" + JsonOutput.toJson(p));
+            listener.getLogger().println("[Debug.1] env ==>" + JsonOutput.toJson(env));
+            listener.getLogger().println("[Debug.2] freshEnv ==>" + JsonOutput.toJson(freshEnv));
+            listener.getLogger().println("[Debug.3] args.toCommandArray() ==>" + JsonOutput.toJson(args.toCommandArray()));
 
             if (workDir != null) {
                 p.pwd(workDir);
