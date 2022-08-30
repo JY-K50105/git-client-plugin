@@ -2641,6 +2641,7 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
             listener.getLogger().println("[Debug.1] env ==>" + JsonOutput.toJson(env));
             listener.getLogger().println("[Debug.2] freshEnv ==>" + JsonOutput.toJson(freshEnv));
             listener.getLogger().println("[Debug.3] args.toCommandArray() ==>" + JsonOutput.toJson(args.toCommandArray()));
+            listener.getLogger().println("[Debug.4] ----------------------------------------------------------------------------");
 
             if (workDir != null) {
                 p.pwd(workDir);
