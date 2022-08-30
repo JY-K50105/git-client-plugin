@@ -2614,7 +2614,17 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
 
     private String launchCommandIn(ArgumentListBuilder args, File workDir, EnvVars env, Integer timeout) throws GitException, InterruptedException {
 
-        EnvVars freshEnv = new EnvVars(env);
+        // EnvVars freshEnv = new EnvVars(env);
+        // fix "Webhook push data too long, caused pipeline git pull errror. it tips that Argument list too long."
+        // JIRA：https://issues.jenkins.io/browse/JENKINS-69423
+        EnvVars freshEnv = new EnvVars();
+        if(env.containsKey("GIT_SSH")){
+            freshEnv.put("GIT_SSH",env.get("GIT_SSH"));
+        }
+        if(env.containsKey("DISPLAY")){
+            freshEnv.put("DISPLAY",env.get("DISPLAY"));
+        }
+
         // If we don't have credentials, but the requested URL requires them,
         // it is possible for Git to hang forever waiting for interactive
         // credential input. Prevent this by setting GIT_ASKPASS to "echo"
