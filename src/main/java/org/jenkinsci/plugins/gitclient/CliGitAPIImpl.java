@@ -314,6 +314,8 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
         super(workspace);
         this.listener = listener;
         this.gitExe = gitExe;
+        listener.getLogger().println("> [Hotfix.Temporary.Scheme] Delete the variable with 'git_commits' prefix used in webhook, and the variable 'webHookDataJson_xx' that is currently custom resolved.");
+        environment.keySet().removeIf(key -> key.startsWith("git_commits") || key.startsWith("webHookDataJson") );
         this.environment = environment;
 
         if( isZos() && System.getProperty("ibm.system.encoding") != null ) {
