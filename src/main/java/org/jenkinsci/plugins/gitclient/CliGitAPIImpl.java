@@ -59,17 +59,7 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.nio.file.attribute.UserPrincipal;
 import java.text.MessageFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -2617,6 +2607,9 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
     private String launchCommandIn(ArgumentListBuilder args, File workDir, EnvVars env, Integer timeout) throws GitException, InterruptedException {
 
         EnvVars freshEnv = new EnvVars(env);
+
+        listener.getLogger().println("> [Hotfix.Temporary.Scheme] Delete the variable with 'git_commits' prefix used in webhook, and the variable 'webHookDataJson_xx' that is currently custom resolved.");
+        freshEnv.values().removeIf(value -> value.startsWith("git_commits") || value.startsWith("webHookDataJson") );
 
         // If we don't have credentials, but the requested URL requires them,
         // it is possible for Git to hang forever waiting for interactive
